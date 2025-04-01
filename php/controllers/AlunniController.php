@@ -1,4 +1,5 @@
 <?php
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
@@ -17,15 +18,13 @@ class AlunniController
     // $queryParams = $request->getQueryParams();
     // var_dump($queryParams);
     // exit;
-    //curl http://localhost:8080/alunni/1
-    $mysqli_connection = new MySQLi('my_mariadb', 'root', 'ciccio', 'scuola');
-    $stmt = $mysqli_connection->prepare("SELECT * FROM alunni WHERE id = ?");
-    $stmt->bind_param("i", $args['id']);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $results = $result->fetch_all(MYSQLI_ASSOC);
-    //                          Serializzazione in json 
-    $response->getBody()->write(json_encode($results));
+    // curl http://localhost:8080/alunni/1
+    $db = DB::getInstance();
+    $alunni = $db->select("alunni");
+    $alunno = $alunni[0];
+
+    //Serializzazione in json 
+    $response->getBody()->write(json_encode($alunno, JSON_PRETTY_PRINT));
     return $response->withHeader("Content-type", "application/json")->withStatus(200);
   }
 
