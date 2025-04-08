@@ -11,7 +11,6 @@ $app->get('/alunni', "AlunniController:index");
 
 // query string (sort & query)
 $app->get('/alunni/search', "AlunniController:search");
-
 $app->get('/alunni/{id}', "AlunniController:show");
 $app->post('/alunni', "AlunniController:create");
 $app->put('/alunni/{id}', "AlunniController:update");
