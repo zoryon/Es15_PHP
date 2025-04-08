@@ -100,13 +100,13 @@ class AlunniController
   }
 
   public function update(Request $request, Response $response, $args) {
-    //curl -X PUT http://localhost:8080/alunni/3 -H "Content-Type: application/json" -d '{"nome": "Ruji"}'
+    // curl -X PUT http://localhost:8080/alunni/2 -H "Content-Type: application/json" -d '{"nome": "BOH"}'
     $db = DB::getInstance();
     // Recupera i dati dal body della richiesta (JSON)
     $data = json_decode($request->getBody()->getContents(), true);
     
     // Prepara la query SQL
-    $db->update("alunni", ["nome", "id"], ["nome" => $data["nome"], "id" => $args["id"]]);
+    $db->update("alunni", ["nome" => $data["nome"]], ["id" => $args["id"]]);
     
     //Risposta di successo
     $response->getBody()->write(json_encode([
@@ -118,7 +118,7 @@ class AlunniController
   }
 
   public function destroy(Request $request, Response $response, $args) {
-    //curl -X DELETE http://localhost:8080/alunni/2
+    // curl -X DELETE http://localhost:8080/alunni/2
     $db = DB::getInstance();
     
     // Prepara la query SQL
